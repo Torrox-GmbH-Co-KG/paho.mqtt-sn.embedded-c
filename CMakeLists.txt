@@ -38,5 +38,9 @@ INCLUDE(CPack)
 
 ENABLE_TESTING()
 
+add_compile_options(
+    -Wno-deprecated-declarations
+    -Wno-deprecated-non-prototype)
+
 ADD_SUBDIRECTORY(MQTTSNPacket)
 ADD_SUBDIRECTORY(MQTTSNGateway)

@@ -75,13 +75,12 @@ ADD_LIBRARY(mqtt-sngateway_common
        ${OS}/Network.h
        ${OS}/Threading.cpp
        ${OS}/Threading.h
+       ${OS}/SerialPort.cpp
+       ${OS}/SerialPort.h
        )
 
 # linux
 link_directories("/usr/local/lib")
-
-# Mac
-link_directories("/usr/local/opt/openssl/lib")
 
 
 TARGET_INCLUDE_DIRECTORIES(mqtt-sngateway_common
@@ -100,8 +99,6 @@ TARGET_LINK_LIBRARIES(mqtt-sngateway_common
        PRIVATE
        MQTTSNPacket
        pthread
-       ssl
-       crypto
        bluetooth
        )
 ELSE()
@@ -110,11 +107,14 @@ TARGET_LINK_LIBRARIES(mqtt-sngateway_common
        PRIVATE
        MQTTSNPacket
        pthread
-       ssl
-       crypto
        )
        
 ENDIF()
+
+TARGET_LINK_LIBRARIES(mqtt-sngateway_common
+       PUBLIC
+       OpenSSL::SSL
+       )
 
 ADD_EXECUTABLE(MQTT-SNGateway
        mainGateway.cpp

@@ -18,8 +18,8 @@
 
 #include "MQTTSNGWDefines.h"
 #include "MQTTSNGWProcess.h"
+#include "SerialPort.h"
 #include <string>
-#include <termios.h>
 
 using namespace std;
 
@@ -37,23 +37,6 @@ namespace MQTTSNGW
 #define ESCAPE                   0x7d
 #define XON                      0x11
 #define XOFF                     0x13
-
-/*===========================================
-  Class  SerialPort
- ============================================*/
-class SerialPort{
-public:
-	SerialPort();
-	~SerialPort();
-	int open(char* devName, unsigned int baudrate,  bool parity, unsigned int stopbit, unsigned int flg);
-	bool send(unsigned char b);
-	bool recv(unsigned char* b);
-	void flush();
-
-private:
-	int _fd;  // file descriptor
-	struct termios _tio;
-};
 
 /*===========================================
  Class  SensorNetAddreess

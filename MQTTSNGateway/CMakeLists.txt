@@ -13,4 +13,7 @@
 #  Contributors:
 #     a1lu - initial version
 #*******************************************************************************/
+
+find_package(OpenSSL)
+
 ADD_SUBDIRECTORY(src)

@@ -33,19 +33,19 @@ class Topic
     friend class AggregateTopicTable;
 public:
     Topic();
-    Topic(string* topic, MQTTSN_topicTypes type);
+    Topic(std::string* topic, MQTTSN_topicTypes type);
     ~Topic();
-    string* getTopicName(void);
+    std::string* getTopicName(void);
     uint16_t getTopicId(void);
     MQTTSN_topicTypes getType(void);
-    bool isMatch(string* topicName);
+    bool isMatch(std::string* topicName);
     Topic* duplicate(void);
     void print(void);
 
 private:
     MQTTSN_topicTypes _type;
     uint16_t _topicId;
-    string* _topicName;
+    std::string* _topicName;
     Topic* _next;
 };
 
