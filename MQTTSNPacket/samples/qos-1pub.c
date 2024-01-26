@@ -29,7 +29,6 @@
 
 int main(int argc, char** argv)
 {
-	int rc = 0;
 	int mysock;
 	unsigned char buf[200];
 	int buflen = sizeof(buf);
@@ -62,7 +61,7 @@ int main(int argc, char** argv)
 	len = MQTTSNSerialize_publish(buf, buflen, dup, qos, retained, packetid,
 			topic, payload, payloadlen);
 
-	rc = transport_sendPacketBuffer(host, port, buf, len);
+	transport_sendPacketBuffer(host, port, buf, len);
 
 	transport_close();
 

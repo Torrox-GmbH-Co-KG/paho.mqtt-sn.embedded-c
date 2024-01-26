@@ -45,6 +45,8 @@ BrokerRecvTask::~BrokerRecvTask()
  */
 void BrokerRecvTask::initialize(int argc, char** argv)
 {
+    (void)argc;
+    (void)argv;
     _light = _gateway->getLightIndicator();
 }
 

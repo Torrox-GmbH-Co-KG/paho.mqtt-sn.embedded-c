@@ -509,7 +509,8 @@ void* Thread::_run(void* runnable)
 
 void Thread::initialize(int argc, char** argv)
 {
-
+	(void)argc;
+	(void)argv;
 }
 
 pthread_t Thread::getID()

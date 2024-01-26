@@ -68,7 +68,7 @@ int MQTTSNPacket::broadcast(SensorNetwork* network)
 
 int MQTTSNPacket::serialize(uint8_t* buf)
 {
-    buf = _buf;
+    (void)buf;
     return _bufLen;
 }
 

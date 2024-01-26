@@ -158,6 +158,7 @@ void MQTTSNAggregateConnectionHandler::handleWillmsg(Client* client, MQTTSNPacke
  */
 void MQTTSNAggregateConnectionHandler::handleDisconnect(Client* client, MQTTSNPacket* packet)
 {
+    (void)packet;
     MQTTSNPacket* snMsg = new MQTTSNPacket();
     snMsg->setDISCONNECT(0);
     Event* evt = new Event();
@@ -170,6 +171,7 @@ void MQTTSNAggregateConnectionHandler::handleDisconnect(Client* client, MQTTSNPa
  */
 void MQTTSNAggregateConnectionHandler::handlePingreq(Client* client, MQTTSNPacket* packet)
 {
+    (void)packet;
     if ((client->isSleep() || client->isAwake()) && client->getClientSleepPacket())
     {
         sendStoredPublish(client);

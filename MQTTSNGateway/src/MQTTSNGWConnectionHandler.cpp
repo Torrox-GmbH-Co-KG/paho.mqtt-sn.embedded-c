@@ -253,6 +253,7 @@ void MQTTSNConnectionHandler::handleDisconnect(Client* client, MQTTSNPacket* pac
  */
 void MQTTSNConnectionHandler::handleWilltopicupd(Client* client, MQTTSNPacket* packet)
 {
+    (void)packet;
     /* send NOT_SUPPORTED responce to the client */
     MQTTSNPacket* respMsg = new MQTTSNPacket();
     respMsg->setWILLTOPICRESP(MQTTSN_RC_NOT_SUPPORTED);
@@ -266,6 +267,7 @@ void MQTTSNConnectionHandler::handleWilltopicupd(Client* client, MQTTSNPacket* p
  */
 void MQTTSNConnectionHandler::handleWillmsgupd(Client* client, MQTTSNPacket* packet)
 {
+    (void)packet;
     /* send NOT_SUPPORTED responce to the client */
     MQTTSNPacket* respMsg = new MQTTSNPacket();
     respMsg->setWILLMSGRESP(MQTTSN_RC_NOT_SUPPORTED);
@@ -279,6 +281,7 @@ void MQTTSNConnectionHandler::handleWillmsgupd(Client* client, MQTTSNPacket* pac
  */
 void MQTTSNConnectionHandler::handlePingreq(Client* client, MQTTSNPacket* packet)
 {
+    (void)packet;
     if ((client->isSleep() || client->isAwake()) && client->getClientSleepPacket())
     {
         sendStoredPublish(client);

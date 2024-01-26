@@ -256,6 +256,7 @@ void MQTTGWPublishHandler::handleAck(Client* client, MQTTGWPacket* packet, int t
 
 void MQTTGWPublishHandler::handleAggregatePuback(Client* client, MQTTGWPacket* packet)
 {
+    (void)client;
     uint16_t msgId = packet->getMsgId();
     uint16_t clientMsgId = 0;
     Client* newClient = _gateway->getAdapterManager()->convertClient(msgId, &clientMsgId);
@@ -268,6 +269,7 @@ void MQTTGWPublishHandler::handleAggregatePuback(Client* client, MQTTGWPacket* p
 
 void MQTTGWPublishHandler::handleAggregateAck(Client* client, MQTTGWPacket* packet, int type)
 {
+    (void)client;
     uint16_t msgId = packet->getMsgId();
     uint16_t clientMsgId = 0;
     Client* newClient = _gateway->getAdapterManager()->convertClient(msgId, &clientMsgId);
@@ -287,6 +289,7 @@ void MQTTGWPublishHandler::handleAggregatePubrel(Client* client, MQTTGWPacket* p
 
 void MQTTGWPublishHandler::handleAggregatePublish(Client* client, MQTTGWPacket* packet)
 {
+    (void)client;
     Publish pub;
     packet->getPUBLISH(&pub);
 

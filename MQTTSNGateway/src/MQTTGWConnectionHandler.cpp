@@ -79,6 +79,7 @@ void MQTTGWConnectionHandler::handleConnack(Client* client, MQTTGWPacket* packet
 
 void MQTTGWConnectionHandler::handlePingresp(Client* client, MQTTGWPacket* packet)
 {
+    (void)packet;
     MQTTSNPacket* snPacket = new MQTTSNPacket();
     snPacket->setPINGRESP();
     Event* ev1 = new Event();
@@ -89,6 +90,7 @@ void MQTTGWConnectionHandler::handlePingresp(Client* client, MQTTGWPacket* packe
 
 void MQTTGWConnectionHandler::handleDisconnect(Client* client, MQTTGWPacket* packet)
 {
+    (void)packet;
     MQTTSNPacket* snPacket = new MQTTSNPacket();
     snPacket->setDISCONNECT(0);
     client->disconnected();

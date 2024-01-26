@@ -34,6 +34,8 @@ TestTask::~TestTask()
 
 void TestTask::initialize(int argc, char** argv)
 {
+	(void)argc;
+	(void)argv;
 	printf("Task initialize complite.\n");
 }
 

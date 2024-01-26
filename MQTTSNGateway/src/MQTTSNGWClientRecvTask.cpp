@@ -39,6 +39,8 @@ ClientRecvTask::~ClientRecvTask()
 
 void ClientRecvTask::initialize(int argc, char** argv)
 {
+    (void)argc;
+    (void)argv;
 }
 
 /*

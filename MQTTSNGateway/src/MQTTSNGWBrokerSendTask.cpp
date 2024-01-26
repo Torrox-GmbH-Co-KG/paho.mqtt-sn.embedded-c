@@ -49,6 +49,8 @@ BrokerSendTask::~BrokerSendTask()
  */
 void BrokerSendTask::initialize(int argc, char** argv)
 {
+    (void)argc;
+    (void)argv;
     _gwparams = _gateway->getGWParams();
     _light = _gateway->getLightIndicator();
 }

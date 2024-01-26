@@ -55,7 +55,7 @@ struct Options
 	0,
 };
 
-void usage()
+void usage(void)
 {
 
 }
@@ -210,7 +210,7 @@ char output[3000];
 char* cur_output = output;
 
 
-void write_test_result()
+void write_test_result(void)
 {
 	long duration = elapsed(global_start_time);
 
@@ -311,6 +311,7 @@ int checkConnectPackets(MQTTSNPacket_connectData* before, MQTTSNPacket_connectDa
 
 int test1(struct Options options)
 {
+	(void)options;
 	MQTTSNPacket_connectData data = MQTTSNPacket_connectData_initializer;
 	MQTTSNPacket_connectData data_after = MQTTSNPacket_connectData_initializer;
 	int rc = 0;
@@ -408,6 +409,7 @@ int test1(struct Options options)
 
 int test2(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -489,6 +491,7 @@ int test2(struct Options options)
 
 int test3(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -588,6 +591,7 @@ int test3(struct Options options)
 
 int test4(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	size_t buflen = sizeof(buf);
@@ -636,6 +640,7 @@ int test4(struct Options options)
 
 int test5(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	size_t buflen = sizeof(buf);
@@ -678,6 +683,7 @@ int test5(struct Options options)
 
 int test6(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -710,6 +716,7 @@ int test6(struct Options options)
 
 int test7(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -744,6 +751,7 @@ int test7(struct Options options)
 
 int test8(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -772,6 +780,7 @@ int test8(struct Options options)
 
 int test9(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -806,6 +815,7 @@ int test9(struct Options options)
 
 int test10(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -838,6 +848,7 @@ int test10(struct Options options)
 
 int test11(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -868,6 +879,7 @@ int test11(struct Options options)
 
 int test12(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -896,6 +908,7 @@ int test12(struct Options options)
 
 int test13(struct Options options)
 {
+	(void)options;
 	int rc = 0;
 	unsigned char buf[100];
 	int buflen = sizeof(buf);
@@ -930,7 +943,7 @@ int test13(struct Options options)
 int main(int argc, char** argv)
 {
 	int rc = 0;
- 	int (*tests[])() = {NULL, test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13};
+ 	int (*tests[])(struct Options) = {NULL, test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13};
 
 	xml = fopen("TEST-test1.xml", "w");
 	fprintf(xml, "<testsuite name=\"test1\" tests=\"%d\">\n", (int)(ARRAY_SIZE(tests) - 1));

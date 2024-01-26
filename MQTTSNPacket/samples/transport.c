@@ -121,7 +121,7 @@ int transport_getdata(unsigned char* buf, int count)
 /**
 return >=0 for a socket descriptor, <0 for an error code
 */
-int transport_open()
+int transport_open(void)
 {
 	mysock = socket(AF_INET, SOCK_DGRAM, 0);
 	if (mysock == INVALID_SOCKET)
@@ -130,7 +130,7 @@ int transport_open()
 	return mysock;
 }
 
-int transport_close()
+int transport_close(void)
 {
 int rc;
 

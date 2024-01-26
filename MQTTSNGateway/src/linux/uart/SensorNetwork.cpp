@@ -62,14 +62,18 @@ namespace MQTTSNGW {
         return &sender_addr_;
     }
 
-    int SensorNetwork::unicast(const std::uint8_t* buffer, std::size_t buffer_length, const SensorNetAddress* sendTo)
+    int SensorNetwork::unicast(const std::uint8_t* buffer, std::size_t buffer_length, const SensorNetAddress*)
     {
-        return 0;
+        return broadcast( buffer, buffer_length );
     }
 
     int SensorNetwork::broadcast(const std::uint8_t* buffer, std::size_t buffer_length)
     {
-        return 0;
+        int send = 0;
+        for ( ; buffer_length && uart_.send( *buffer ); --buffer_length, ++send, ++buffer )
+            ;
+
+        return send;
     }
 
     int SensorNetwork::read(std::uint8_t* buffer, std::size_t buffer_length)

@@ -74,6 +74,7 @@ void MQTTGWSubscribeHandler::handleUnsuback(Client* client, MQTTGWPacket* packet
 
 void MQTTGWSubscribeHandler::handleAggregateSuback(Client* client, MQTTGWPacket* packet)
 {
+    (void)client;
     uint16_t msgId = packet->getMsgId();
     uint16_t clientMsgId = 0;
     Client* newClient = _gateway->getAdapterManager()->getAggregater()->convertClient(msgId, &clientMsgId);
@@ -86,6 +87,7 @@ void MQTTGWSubscribeHandler::handleAggregateSuback(Client* client, MQTTGWPacket*
 
 void MQTTGWSubscribeHandler::handleAggregateUnsuback(Client* client, MQTTGWPacket* packet)
 {
+    (void)client;
     uint16_t msgId = packet->getMsgId();
     uint16_t clientMsgId = 0;
     Client* newClient = _gateway->getAdapterManager()->getAggregater()->convertClient(msgId, &clientMsgId);

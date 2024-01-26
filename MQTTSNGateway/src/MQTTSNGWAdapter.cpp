@@ -281,6 +281,8 @@ void Proxy::resetPingTimer(void)
 
 void Proxy::recv(MQTTSNPacket* packet, Client* client)
 {
+    (void)client;
+
     if (packet->getType() == MQTTSN_CONNACK)
     {
         if (packet->isAccepted())

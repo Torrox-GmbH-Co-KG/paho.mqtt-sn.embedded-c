@@ -28,7 +28,6 @@
 
 int main(int argc, char** argv)
 {
-	int rc = 0;
 	int mysock;
 	unsigned char buf[200];
 	int buflen = sizeof(buf);
@@ -58,7 +57,7 @@ int main(int argc, char** argv)
 
 	options.clientID.cstring = "myclientid";
 	len = MQTTSNSerialize_connect(buf, buflen, &options);
-	rc = transport_sendPacketBuffer(host, port, buf, len);
+	transport_sendPacketBuffer(host, port, buf, len);
 
 	/* wait for connack */
 	if (MQTTSNPacket_read(buf, buflen, transport_getdata) == MQTTSN_CONNACK)
@@ -81,7 +80,7 @@ int main(int argc, char** argv)
 	memcpy(topic.data.short_name, "tt", 2);
 	len = MQTTSNSerialize_publish(buf, buflen - len, dup, qos, retained, packetid,
 			topic, payload, payloadlen);
-	rc = transport_sendPacketBuffer(host, port, buf, len);
+	transport_sendPacketBuffer(host, port, buf, len);
 
 	/* wait for puback */
 	if (MQTTSNPacket_read(buf, buflen, transport_getdata) == MQTTSN_PUBACK)
@@ -98,7 +97,7 @@ int main(int argc, char** argv)
 		goto exit;
 
 	len = MQTTSNSerialize_disconnect(buf, buflen, 0);
-	rc = transport_sendPacketBuffer(host, port, buf, len);
+	transport_sendPacketBuffer(host, port, buf, len);
 
 exit:
 	transport_close();

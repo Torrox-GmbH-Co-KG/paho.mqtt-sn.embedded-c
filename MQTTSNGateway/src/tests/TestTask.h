@@ -25,7 +25,6 @@ namespace MQTTSNGW
 class TestTask: public Thread
 {
 MAGIC_WORD_FOR_THREAD;
-	;
 public:
 	TestTask(TestProcess* proc);
 	~TestTask();
