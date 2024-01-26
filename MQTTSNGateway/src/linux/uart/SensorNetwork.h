@@ -45,9 +45,12 @@ namespace MQTTSNGW {
         int read(std::uint8_t* buffer, std::size_t buffer_length);
 
     private:
+        void fill_buffer();
+
         SensorNetAddress sender_addr_;
         std::string description_;
         SerialPort  uart_;
+        std::vector< std::uint8_t > receive_buffer_;
     };
 }
 

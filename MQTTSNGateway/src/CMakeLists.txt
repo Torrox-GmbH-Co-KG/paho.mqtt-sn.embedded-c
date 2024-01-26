@@ -26,7 +26,7 @@ MESSAGE(STATUS "VERSION : ${GATEWAY_VERSION}")
 configure_file( MQTTSNGWVersion.h.in ${CMAKE_CURRENT_SOURCE_DIR}/MQTTSNGWVersion.h )
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/../bin)
-SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 20)
 
 SET(OS linux)
 
@@ -94,15 +94,23 @@ TARGET_INCLUDE_DIRECTORIES(mqtt-sngateway_common
        )
 
 IF(SENSORNET MATCHES "rfcomm")
-
 TARGET_LINK_LIBRARIES(mqtt-sngateway_common
        PRIVATE
        MQTTSNPacket
        pthread
        bluetooth
        )
-ELSE()
 
+ELSEIF(SENSORNET MATCHES "uart")
+
+TARGET_LINK_LIBRARIES(mqtt-sngateway_common
+       PRIVATE
+       MQTTSNPacket
+       pthread
+       cobs
+       )
+
+ELSE()
 TARGET_LINK_LIBRARIES(mqtt-sngateway_common
        PRIVATE
        MQTTSNPacket

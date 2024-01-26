@@ -1,3 +1,5 @@
+#include "cobs.hpp"
+
 #include "SensorNetwork.h"
 
 #include <sstream>
@@ -46,7 +48,8 @@ namespace MQTTSNGW {
 
         if ( uart_.open(param, baudrate, false, 1, O_RDWR | O_NOCTTY) < 0 )
         {
-            throw EXCEPTION("Can't open UART", errno);
+            static std::string error_text = "Can't open UART: " + description_;
+            throw EXCEPTION(error_text.c_str(), errno);
         }
 
         sender_addr_ = SensorNetAddress( param );
@@ -67,17 +70,47 @@ namespace MQTTSNGW {
         return broadcast( buffer, buffer_length );
     }
 
-    int SensorNetwork::broadcast(const std::uint8_t* buffer, std::size_t buffer_length)
+    int SensorNetwork::broadcast(const std::uint8_t* input, std::size_t input_length)
     {
-        int send = 0;
-        for ( ; buffer_length && uart_.send( *buffer ); --buffer_length, ++send, ++buffer )
+        std::vector< std::uint8_t > buffer( input_length + cobs::encode_max_overhead( input_length ) );
+        std::copy( input, input + input_length, buffer.begin() );
+
+        const auto encoded = cobs::encode_inplace( { buffer.begin(), input_length }, buffer.size() );
+
+        for ( const auto c: encoded )
+            uart_.send( c );
+
+        return encoded.size();
+    }
+
+    void SensorNetwork::fill_buffer()
+    {
+        // find start
+        std::uint8_t in_byte = cobs::delimiter;
+        while ( in_byte == cobs::delimiter && uart_.recv( &in_byte ) )
             ;
 
-        return send;
+        if ( in_byte != cobs::delimiter )
+        {
+            receive_buffer_.push_back( in_byte );
+
+            while ( uart_.recv( &in_byte ) && in_byte != cobs::delimiter )
+                receive_buffer_.push_back( in_byte );
+        }
     }
 
     int SensorNetwork::read(std::uint8_t* buffer, std::size_t buffer_length)
     {
-        return 0;
+        fill_buffer();
+
+        const auto decoded = cobs::decode_inplace( { receive_buffer_.begin(), receive_buffer_.end() } );
+
+        if ( decoded.size() > buffer_length )
+            throw EXCEPTION("Receive Buffer too small: ", decoded.size() );
+
+        std::copy( decoded.begin(), decoded.end(), buffer );
+        receive_buffer_.clear();
+
+        return decoded.size();
     }
 }
