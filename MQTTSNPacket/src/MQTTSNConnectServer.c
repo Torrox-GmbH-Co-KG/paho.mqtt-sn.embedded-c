@@ -270,7 +270,7 @@ int MQTTSNDeserialize_willtopic1(int *willQoS, unsigned char *willRetain, MQTTSN
 	if (enddata > buf + len)
 		goto exit;
 
-	if (readChar(&curdata) != packet_type)
+	if (readChar(&curdata) != (char)packet_type)
 		goto exit;
 
 	flags.all = readChar(&curdata);
@@ -332,7 +332,7 @@ int MQTTSNDeserialize_willmsg1(MQTTSNString* willMsg, unsigned char* buf, int le
 	if (enddata > buf + len)
 		goto exit;
 
-	if (readChar(&curdata) != packet_type)
+	if (readChar(&curdata) != (char)packet_type)
 		goto exit;
 
 	if (!readMQTTSNString(willMsg, &curdata, enddata))
